@@ -1,4 +1,14 @@
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import streamlit as st
+
+# Load pre-trained model and tokenizer
+model_name = "gpt2"
+model = GPT2LMHeadModel.from_pretrained(model_name)
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+
+# Ensure padding tokens are defined
+tokenizer.pad_token = tokenizer.eos_token
+model.resize_token_embeddings(len(tokenizer))
 
 # Function to generate responses
 def generate_response(prompt):
